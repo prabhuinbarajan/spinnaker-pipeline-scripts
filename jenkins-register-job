@@ -1,12 +1,12 @@
 #!/bin/bash
 output=`cat /dev/stdin | sed "s/'/\"/g"`
 repo=`echo $output | jq '.repo' | sed 's/"//g'`
-giturl=`echo $output | jq '.giturl'| sed 's/"//g'`
+slug=`echo $output | jq '.slug'| sed 's/"//g'`
 refspec=`echo $output | jq '.branch'| sed 's/"//g'`
 commit=`echo $output | jq '.commit'| sed 's/"//g'`
 JENKINS_SERVER=192.168.99.100:8080
-
-#echo "$repo $giturl $refspec $commit"
+giturl="$repo/$slug"
+echo "$repo $giturl $refspec $commit"
 
 cd /tmp
 rm -rf $commit
