@@ -1,11 +1,15 @@
 #!/bin/bash
-output=`cat /dev/stdin | sed "s/'/\"/g"`
-repo=`echo $output | jq '.repo' | sed 's/"//g'`
-slug=`echo $output | jq '.slug'| sed 's/"//g'`
-refspec=`echo $output | jq '.branch'| sed 's/"//g'`
-commit=`echo $output | jq '.commit'| sed 's/"//g'`
+#output=`cat /dev/stdin | sed "s/'/\"/g"`
+#repo=`echo $output | jq '.repo' | sed 's/"//g'`
+#slug=`echo $output | jq '.slug'| sed 's/"//g'`
+#refspec=`echo $output | jq '.branch'| sed 's/"//g'`
+#commit=`echo $output | jq '.commit'| sed 's/"//g'`
+repo=$1
+slug=$2
+commit=$3
+base_url="https://github.com/"
 JENKINS_SERVER=192.168.99.100:8080
-giturl="$repo/$slug"
+giturl="$base_url/$repo/$slug"
 echo "$repo $giturl $refspec $commit"
 
 cd /tmp
