@@ -19,7 +19,7 @@ cd $commit
 git checkout $commit
 export PATH=$PATH:/home/vagrant/git/jenkins-job-builder/venvjenkins/bin
 if [ -f ci.yml ]; then
- jenkins-jobs --conf /home/vagrant/git/jenkins-job-builder/etc/jenkins_jobs.ini  update ci.yml
+ jenkins-jobs --conf /tmp/jenkins_jobs.ini  update ci.yml
  rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
  job_name=`jenkins-jobs --conf /tmp/jenkins_jobs.ini test /tmp/${commit}/ci.yml 2>&1 | tee | grep -i "job name" | awk '{ if(match($0, /Job name: (.*)/ , m)) print m[1] }' | sed 's/ //g'`
  echo "$job_name"
