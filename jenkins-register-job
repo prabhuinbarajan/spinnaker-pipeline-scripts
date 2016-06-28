@@ -11,7 +11,7 @@ commit=$3
 base_url="https://github.com/"
 JENKINS_SERVER=192.168.99.100:8080
 giturl="$base_url/$repo/$slug"
-jenkins_conf=/var/jenkins_home/conf/jenkins_jobs.ini
+jenkins_conf=/var/jenkins_home/config/jenkins_jobs.ini
 echo "$repo $giturl $refspec $commit"
 
 cd /tmp
