@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 #output=`cat /dev/stdin | sed "s/'/\"/g"`
 #repo=`echo $output | jq '.repo' | sed 's/"//g'`
 #slug=`echo $output | jq '.slug'| sed 's/"//g'`
