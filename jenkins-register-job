@@ -11,6 +11,7 @@ commit=$3
 base_url="https://github.com/"
 JENKINS_SERVER=192.168.99.100:8080
 giturl="$base_url/$repo/$slug"
+jenkins_conf=/var/jenkins_home/conf/jenkins_jobs.ini
 echo "$repo $giturl $refspec $commit"
 
 cd /tmp
@@ -21,9 +22,9 @@ git checkout $commit
 . /var/jenkins_home/venv/bin/activate
 #export PATH=$PATH:/var/jenkins_home/venv/bin
 if [ -f ci.yml ]; then
- jenkins-jobs --conf /tmp/jenkins_jobs.ini  update ci.yml
+ jenkins-jobs --conf $jenkins_conf  update ci.yml
  rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
- job_name=`jenkins-jobs --conf /var/jenkins_home/conf/jenkins_jobs.ini test /tmp/${commit}/ci.yml 2>&1 | tee | grep -i "job name" | awk '{ if(match($0, /Job name: (.*)/ , m)) print m[1] }' | sed 's/ //g'`
+ job_name=`jenkins-jobs --conf $jenkins_conf test /tmp/${commit}/ci.yml 2>&1 | tee | grep -i "job name" | awk '{ if(match($0, /Job name: (.*)/ , m)) print m[1] }' | sed 's/ //g'`
  echo "$job_name"
   #java -jar /home/vagrant/git/jenkins-job-builder/jenkins-cli.jar -s http://${JENKINS_SERVER}/ -i ~/.ssh/stanley_rsa build $job_name 
   #cd /home/vagrant/git/st2
